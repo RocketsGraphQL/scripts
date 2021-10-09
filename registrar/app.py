@@ -30,10 +30,11 @@ def webhook():
     try:
         ip_address = ip
         requested_name = name
+        address = "{0}:8080".format(ip)
+        req_name = "{0}".format(name)
         url = 'http://localhost:2019/config/apps/http/servers/srv0/routes'
         myobj = {
-        'handle': """
-[
+        'handle': [
 			                  {
 				                  "handler": "subroute",
 				                  "routes": [
@@ -43,7 +44,7 @@ def webhook():
 						                      "handler": "reverse_proxy",
                                   "upstreams": [
                                     {
-                                      "dial": "3.139.105.219:8080"
+                                      "dial": address
                                     }
                                   ]
                                 }
@@ -52,20 +53,19 @@ def webhook():
                           ]
 			                  }
 			                ]
-        """,
-        'match': """
-[
+        ,
+        'match':[
                         {
                           "host": [
-                            "hasura-0012.rocketgraph.app"
+                            req_name
                           ]
                         }
             ]
-        """,
+        ,
         "terminal": "true"
         }
 
-        x = requests.post(url, data = myobj)
+        x = requests.post(url, json = myobj)
 
         print(x.text)
     except ValueError as e:
