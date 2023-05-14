@@ -34,33 +34,33 @@ def webhook():
         req_name = "{0}".format(name)
         url = 'http://localhost:2019/config/apps/http/servers/srv0/routes'
         myobj = {
-        'handle': [
-            {
-              "handler": "subroute",
-              "routes": [
-                  {
-                    "handle": [
-                      {
-                        "handler": "reverse_proxy",
-                        "upstreams": [
-                          {
-                            "dial": address
-                          }
-                        ]
-                      }
-                    ]
-                  }
-              ]
-            }
-			  ],
-        'match':[
-            {
-              "host": [
-                req_name
-              ]
-            }
-        ],
-        "terminal": "true"
+          'handle': [
+              {
+                "handler": "subroute",
+                "routes": [
+                    {
+                      "handle": [
+                        {
+                          "handler": "reverse_proxy",
+                          "upstreams": [
+                            {
+                              "dial": address
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                ]
+              }
+          ],
+          'match':[
+              {
+                "host": [
+                  req_name
+                ]
+              }
+          ],
+          "terminal": True
         }
 
         x = requests.post(url, json = myobj)
