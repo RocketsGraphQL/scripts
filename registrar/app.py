@@ -35,33 +35,31 @@ def webhook():
         url = 'http://localhost:2019/config/apps/http/servers/srv0/routes'
         myobj = {
         'handle': [
-			                  {
-				                  "handler": "subroute",
-				                  "routes": [
-				                    {
-					                    "handle": [
-					                      {
-						                      "handler": "reverse_proxy",
-                                  "upstreams": [
-                                    {
-                                      "dial": address
-                                    }
-                                  ]
-                                }
-                              ]
-                            }
-                          ]
-			                  }
-			                ]
-        ,
+            {
+              "handler": "subroute",
+              "routes": [
+                  {
+                    "handle": [
+                      {
+                        "handler": "reverse_proxy",
+                        "upstreams": [
+                          {
+                            "dial": address
+                          }
+                        ]
+                      }
+                    ]
+                  }
+              ]
+            }
+			  ],
         'match':[
-                        {
-                          "host": [
-                            req_name
-                          ]
-                        }
-            ]
-        ,
+            {
+              "host": [
+                req_name
+              ]
+            }
+        ],
         "terminal": "true"
         }
 
@@ -92,3 +90,7 @@ def webhook():
     #   print('Unhandled event type {}'.format(event['type']))
 
     return jsonify(success=True)
+
+
+if __name__ == '__main__':
+    app.run(host="0.0.0.0", port=4242, debug=True, threaded=True)
