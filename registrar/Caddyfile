@@ -1,0 +1,3 @@
+registration-service.rocketgraph.app {
+  reverse_proxy * localhost:4242
+}
