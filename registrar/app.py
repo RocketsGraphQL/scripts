@@ -30,7 +30,7 @@ def webhook():
     try:
         ip_address = ip
         requested_name = name
-        address = "{0}:8080".format(ip)
+        address = "{0}".format(ip)
         req_name = "{0}".format(name)
         url = 'http://localhost:2019/config/apps/http/servers/srv0/routes'
         myobj = {
